@@ -31,7 +31,7 @@
             UserNameLabelText="email"
             FailureText="Неверный логин или пароль"
             TitleText="Вход для заказчика"
-           DestinationPageUrl="~/Default.aspx">
+           DestinationPageUrl="~/Default.aspx" OnAuthenticate="Customer_Authenticate">
         </asp:Login>
             </div>
         <div style="float:right">
@@ -42,7 +42,7 @@
             UserNameLabelText="email"
             FailureText="Неверный логин или пароль"
             TitleText="Вход для подрядчика"
-           DestinationPageUrl="~/Default.aspx">
+           DestinationPageUrl="~/Default.aspx" OnAuthenticate="Contractor_Authenticate">
         </asp:Login>
             </div>
      <br>
