@@ -6,6 +6,11 @@
         <h2>Use the form below to create a new account.</h2>
     </hgroup>
 
+    <asp:Panel ID="Panel1" runat="server">
+        <asp:RadioButton ID="RadioButton1" runat="server" Checked="True" Text="Заказчик" />
+        <asp:RadioButton ID="RadioButton2" runat="server" Text="Подрядчик" />
+    </asp:Panel>
+
     <asp:CreateUserWizard runat="server" ID="RegisterUser" ViewStateMode="Disabled" OnCreatedUser="RegisterUser_CreatedUser">
         <LayoutTemplate>
             <asp:PlaceHolder runat="server" ID="wizardStepPlaceholder" />
@@ -52,7 +57,7 @@
                                      CssClass="field-validation-error" Display="Dynamic" ErrorMessage="The password and confirmation password do not match." />
                             </li>
                         </ol>
-                        <asp:Button runat="server" CommandName="MoveNext" Text="Register" />
+                        <asp:Button runat="server" CommandName="MoveNext" Text="Register" onClick="Register"/>
                     </fieldset>
                 </ContentTemplate>
                 <CustomNavigationTemplate />

@@ -50,37 +50,37 @@
     <a class="green goodbutton" a id="customerRegister" rel="leanModal" name="signup" href="#signupCustomer">Зарегистрировать заказчика</a>
     <br>
     <a class="green goodbutton" a id="contractorRegister" rel="leanModal" name="signup" href="#signupContractor">Зарегистрировать подрядчика</a>
-            <div id="signupCustomer" class="signup" style="display: none; position:fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+                        <div id="signupCustomer" class="signup" style="display: none; position:fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
 			<div class="signup-ct">
 				<div class="signup-header">
 					<h2>Регистрация заказчика</h2>
 				</div>
 				
-				<form action="">
-     
-				  <div class="txt-fld">
-				    <label for="">ФИО</label>
-				    <input id="CustomerName"  name="" type="text" />
+                <asp:Panel ID="Panel1" runat="server">
 
-				  </div>
-				  <div class="txt-fld">
-				    <label for="">email</label>
-				    <input id="CustomerEmail" name="" type="text" />
-				  </div>
-				  <div class="txt-fld">
-				    <label for="">Пароль</label>
-				    <input id="CustomerPassword" name="" type="password" />
-                      </div>
+                    <div class="txt-fld">
+                        <label for="">ФИО</label>
+                        <asp:TextBox runat="server" ID="CustomerName" TextMode="SingleLine"/>
 
-                  <div class="txt-fld">
-				    <label for="">Пароль еще раз</label>
-				    <input id="CustomerPassword2" name="" type="password" />
+                    </div>
+                    <div class="txt-fld">
+                        <label for="">email</label>
+                        <asp:TextBox runat="server" ID="CustomerEmail" TextMode="Email"/>
+                    </div>
+                    <div class="txt-fld">
+                        <label for="">Пароль</label>
+                        <asp:TextBox runat="server" ID="CustomerPassword" name="" TextMode="Password" />
                     </div>
 
-				  <div class="btn-fld">
-				  <button id="buttonCustomer"type="submit">Зарегистрироваться &raquo;</button>
-				  </div>
-				 </form>
+                    <div class="txt-fld">
+                        <label for="">Пароль еще раз</label>
+                        <asp:TextBox runat="server" ID="CustomerPassword2" name="" TextMode="Password" />
+                    </div>
+
+                    <div class="btn-fld">
+                        <asp:Button runat="server" ID="buttonCustomer" type="submit" OnClick="registerCustomer" Text="Зарегистрироваться"></asp:Button>
+                    </div>
+                </asp:Panel>
 			</div>
 		</div>
 
@@ -90,33 +90,41 @@
 					<h2>Регистрация подрядчика</h2>
 				</div>
 				
-				<form action="">
+				<!-- <form method="post" > -->
+                <asp:Panel ID="Panel2" runat="server">
      
 				  <div class="txt-fld">
 				    <label for="">ФИО</label>
-				    <input id="ContracorName"  name="" type="text" />
+				    <asp:TextBox runat="server" ID="ContracorName"  TextMode="SingleLine"/>
 
 				  </div>
 				  <div class="txt-fld">
 				    <label for="">email</label>
-				    <input id="ContracorEmail" name="" type="text" />
+				    <asp:TextBox runat="server" ID="ContracorEmail" TextMode="Email" />
 				  </div>
 				  <div class="txt-fld">
 				    <label for="">Пароль</label>
-				    <input id="ContracorPassword" name="" type="password" />
-                      </div>
+				    <asp:TextBox runat="server" ID="ContracorPassword" TextMode="Password" onchange="validate" />
+                  </div>
 
                   <div class="txt-fld">
 				    <label for="">Пароль еще раз</label>
-				    <input id="ContracorPassword2" name="" type="password" />
+				    <asp:TextBox runat="server" ID="ContracorPassword2" TextMode="Password" />
 				  </div>
-
+                  <script>
+                      function validate(control) {
+                          alert("smth happened");
+                      }
+                  </script>
 				  <div class="btn-fld">
-				  <button id="buttonContracor"type="submit">Зарегистрироваться &raquo;</button>
+				  <asp:Button runat="server" ID="buttonContracor" OnClick="registerContractor" Text="Зарегистрироваться"></asp:Button>
+                     
 				  </div>
-				 </form>
+				 </asp:Panel>
 			</div>
 		</div>
 
         </div>
+
+        
     </asp:Content>

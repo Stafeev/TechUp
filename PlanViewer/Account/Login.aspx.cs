@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Configuration;
@@ -22,8 +23,9 @@ namespace PlanViewer
             {
                 RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
             }*/
+            
         }
-
+        
         protected void Customer_Authenticate(object sender, AuthenticateEventArgs e)
         {            
             string email = Customer.UserName;
@@ -50,6 +52,12 @@ namespace PlanViewer
             {
                 Session["UserAuthentication"] = email;
                 Session.Timeout = 1;
+                if (Membership.GetUser(email) == null)
+                {
+                    Alert.Show("Пользователь не найден!");
+                    return;
+                }
+                FormsAuthentication.SetAuthCookie(email, true);
                 Response.Redirect("../ViewPlan.aspx");
             }
             else
@@ -85,13 +93,105 @@ namespace PlanViewer
             {
                 Session["UserAuthentication"] = email;
                 Session.Timeout = 1;
+                if (Membership.GetUser(email) == null)
+                {
+                    Alert.Show("Пользователь не найден!");
+                    return;
+                }
+                FormsAuthentication.SetAuthCookie(email, true);
+                
                 Response.Redirect("../CreatePlan.aspx");
             }
             else
             {
                 Session["UserAuthentication"] = "";
+                Alert.Show("Неверное имя пользователя или пароль!");
             }
             con.Close();
         }
+         protected void registerCustomer(object sender, EventArgs e)
+         {
+             string name = CustomerName.Text;
+             string email = CustomerEmail.Text;
+             string pas = CustomerPassword.Text;
+             string pas2 = CustomerPassword2.Text;
+             if (!pas.Equals(pas2))
+             {
+                 Alert.Show("Пароли не совпадают!");
+                 return;
+             }
+              if (name == "" || email == "" || pas == ""
+             || pas2 == "")
+            {
+                Alert.Show("Пожалуйста, заполните все поля");
+                return;
+            }
+              if (pas.Length < 6)
+              {
+                  Alert.Show("Пароль должен состоять не менее чем из 6 символов");
+                  return;
+              }
+            var db = new DBClassesDataContext();
+
+
+               Customer c = new Customer { Name = name, Email = email, Password = pas, Info = "", Address=""};
+                db.Customers.InsertOnSubmit(c);
+            try
+            {
+                db.SubmitChanges();
+                Membership.CreateUser(email, pas);
+                FormsAuthentication.SetAuthCookie(email, true);
+                Response.Redirect("../ViewPlan.aspx");
+                //Alert.Show("Запись успешно добавлена");
+            }
+            catch (Exception ex)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "нет записи", true);
+                System.Diagnostics.Debug.Print(ex.StackTrace);
+            }
+            //Response.Redirect("http://.../Default.aspx");
+         }
+         protected void registerContractor(object sender, EventArgs e)
+         {
+             string name = ContracorName.Text;
+             string email = ContracorEmail.Text;
+             string pas = ContracorPassword.Text;
+             string pas2 = ContracorPassword2.Text;
+             if (!pas.Equals(pas2))
+             {
+                 Alert.Show("Пароли не совпадают!");
+                 return;
+             }
+             
+             if (name == "" || email == "" || pas == ""
+   || pas2 == "")
+             {
+                 Alert.Show("Пожалуйста, заполните все поля");
+                 return;
+             }
+             if (pas.Length < 6)
+             {
+                 Alert.Show("Пароль должен состоять не менее чем из 6 символов");
+                 return;
+             }
+             var db = new DBClassesDataContext();
+
+
+             Contractor c = new Contractor { Name = name, Email = email, Password = pas, Address="", Info="" };
+             db.Contractors.InsertOnSubmit(c);
+             try
+             {
+                 db.SubmitChanges();
+                 Membership.CreateUser(email, pas);
+                 FormsAuthentication.SetAuthCookie(email, true);
+                 Response.Redirect("../createPlan.aspx");
+                 //Alert.Show("Запись успешно добавлена");
+             }
+             catch
+             {
+                 ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "нет записи", true);
+             }
+             
+         }
     }
 }
