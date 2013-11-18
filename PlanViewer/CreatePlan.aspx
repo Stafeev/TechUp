@@ -37,7 +37,7 @@
     <asp:TextBox id="customer" runat="server" />
     <br>
     <h3>Подрядчик</h3>
-    <asp:TextBox id="contractor" runat="server" />
+    <asp:TextBox id="contractor" runat="server" Enabled="false"/>
     <br>
     <asp:Button ID="ButtonSend" runat="server" onclick="ButtonSend_Click" Text="Отправить на согласование" />
 </asp:Content>

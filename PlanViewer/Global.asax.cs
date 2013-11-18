@@ -12,12 +12,22 @@ namespace PlanViewer
 {
     public class Global : HttpApplication
     {
+        public const string customerRole = "Customer";
+        public const string contractorRole = "Contractor";
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterOpenAuth();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            if (!Roles.RoleExists(customerRole))
+            {
+                Roles.CreateRole(customerRole);
+            }
+            if (!Roles.RoleExists(contractorRole))
+            {
+                Roles.CreateRole(contractorRole);
+            }  
         }
 
         void Application_End(object sender, EventArgs e)

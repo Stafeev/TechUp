@@ -30,9 +30,6 @@ namespace PlanViewer.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertPlan(Plan instance);
-    partial void UpdatePlan(Plan instance);
-    partial void DeletePlan(Plan instance);
     partial void InsertFact(Fact instance);
     partial void UpdateFact(Fact instance);
     partial void DeleteFact(Fact instance);
@@ -42,6 +39,9 @@ namespace PlanViewer.Models
     partial void InsertContractor(Contractor instance);
     partial void UpdateContractor(Contractor instance);
     partial void DeleteContractor(Contractor instance);
+    partial void InsertPlan(Plan instance);
+    partial void UpdatePlan(Plan instance);
+    partial void DeletePlan(Plan instance);
     #endregion
 		
 		public DBClassesDataContext() : 
@@ -74,14 +74,6 @@ namespace PlanViewer.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Plan> Plans
-		{
-			get
-			{
-				return this.GetTable<Plan>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Fact> Facts
 		{
 			get
@@ -105,453 +97,12 @@ namespace PlanViewer.Models
 				return this.GetTable<Contractor>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Plan]")]
-	public partial class Plan : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _Object;
-		
-		private string _WorkType;
-		
-		private string _UnitName;
-		
-		private string _CostName;
-		
-		private string _Labor;
-		
-		private string _Materials;
-		
-		private string _Mechnisms;
-		
-		private System.Nullable<int> _Customer;
-		
-		private System.Nullable<int> _Contractor;
-		
-		private System.Nullable<int> _Fact;
-		
-		private int _Status;
-		
-		private EntityRef<Fact> _Fact1;
-		
-		private EntityRef<Customer> _Customer1;
-		
-		private EntityRef<Contractor> _Contractor1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnObjectChanging(string value);
-    partial void OnObjectChanged();
-    partial void OnWorkTypeChanging(string value);
-    partial void OnWorkTypeChanged();
-    partial void OnUnitNameChanging(string value);
-    partial void OnUnitNameChanged();
-    partial void OnCostNameChanging(string value);
-    partial void OnCostNameChanged();
-    partial void OnLaborChanging(string value);
-    partial void OnLaborChanged();
-    partial void OnMaterialsChanging(string value);
-    partial void OnMaterialsChanged();
-    partial void OnMechnismsChanging(string value);
-    partial void OnMechnismsChanged();
-    partial void OnCustomerChanging(System.Nullable<int> value);
-    partial void OnCustomerChanged();
-    partial void OnContractorChanging(System.Nullable<int> value);
-    partial void OnContractorChanged();
-    partial void OnFactChanging(System.Nullable<int> value);
-    partial void OnFactChanged();
-    partial void OnStatusChanging(int value);
-    partial void OnStatusChanged();
-    #endregion
-		
-		public Plan()
-		{
-			this._Fact1 = default(EntityRef<Fact>);
-			this._Customer1 = default(EntityRef<Customer>);
-			this._Contractor1 = default(EntityRef<Contractor>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		public System.Data.Linq.Table<Plan> Plans
 		{
 			get
 			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Object", DbType="NVarChar(50)")]
-		public string Object
-		{
-			get
-			{
-				return this._Object;
-			}
-			set
-			{
-				if ((this._Object != value))
-				{
-					this.OnObjectChanging(value);
-					this.SendPropertyChanging();
-					this._Object = value;
-					this.SendPropertyChanged("Object");
-					this.OnObjectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkType", DbType="NVarChar(50)")]
-		public string WorkType
-		{
-			get
-			{
-				return this._WorkType;
-			}
-			set
-			{
-				if ((this._WorkType != value))
-				{
-					this.OnWorkTypeChanging(value);
-					this.SendPropertyChanging();
-					this._WorkType = value;
-					this.SendPropertyChanged("WorkType");
-					this.OnWorkTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(50)")]
-		public string UnitName
-		{
-			get
-			{
-				return this._UnitName;
-			}
-			set
-			{
-				if ((this._UnitName != value))
-				{
-					this.OnUnitNameChanging(value);
-					this.SendPropertyChanging();
-					this._UnitName = value;
-					this.SendPropertyChanged("UnitName");
-					this.OnUnitNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CostName", DbType="NVarChar(50)")]
-		public string CostName
-		{
-			get
-			{
-				return this._CostName;
-			}
-			set
-			{
-				if ((this._CostName != value))
-				{
-					this.OnCostNameChanging(value);
-					this.SendPropertyChanging();
-					this._CostName = value;
-					this.SendPropertyChanged("CostName");
-					this.OnCostNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Labor", DbType="NVarChar(50)")]
-		public string Labor
-		{
-			get
-			{
-				return this._Labor;
-			}
-			set
-			{
-				if ((this._Labor != value))
-				{
-					this.OnLaborChanging(value);
-					this.SendPropertyChanging();
-					this._Labor = value;
-					this.SendPropertyChanged("Labor");
-					this.OnLaborChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Materials", DbType="NVarChar(50)")]
-		public string Materials
-		{
-			get
-			{
-				return this._Materials;
-			}
-			set
-			{
-				if ((this._Materials != value))
-				{
-					this.OnMaterialsChanging(value);
-					this.SendPropertyChanging();
-					this._Materials = value;
-					this.SendPropertyChanged("Materials");
-					this.OnMaterialsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mechnisms", DbType="NVarChar(50)")]
-		public string Mechnisms
-		{
-			get
-			{
-				return this._Mechnisms;
-			}
-			set
-			{
-				if ((this._Mechnisms != value))
-				{
-					this.OnMechnismsChanging(value);
-					this.SendPropertyChanging();
-					this._Mechnisms = value;
-					this.SendPropertyChanged("Mechnisms");
-					this.OnMechnismsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer", DbType="Int")]
-		public System.Nullable<int> Customer
-		{
-			get
-			{
-				return this._Customer;
-			}
-			set
-			{
-				if ((this._Customer != value))
-				{
-					if (this._Customer1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCustomerChanging(value);
-					this.SendPropertyChanging();
-					this._Customer = value;
-					this.SendPropertyChanged("Customer");
-					this.OnCustomerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contractor", DbType="Int")]
-		public System.Nullable<int> Contractor
-		{
-			get
-			{
-				return this._Contractor;
-			}
-			set
-			{
-				if ((this._Contractor != value))
-				{
-					if (this._Contractor1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnContractorChanging(value);
-					this.SendPropertyChanging();
-					this._Contractor = value;
-					this.SendPropertyChanged("Contractor");
-					this.OnContractorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fact", DbType="Int")]
-		public System.Nullable<int> Fact
-		{
-			get
-			{
-				return this._Fact;
-			}
-			set
-			{
-				if ((this._Fact != value))
-				{
-					if (this._Fact1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFactChanging(value);
-					this.SendPropertyChanging();
-					this._Fact = value;
-					this.SendPropertyChanged("Fact");
-					this.OnFactChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
-		public int Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fact_Plan", Storage="_Fact1", ThisKey="Fact", OtherKey="ID", IsForeignKey=true)]
-		public Fact Fact1
-		{
-			get
-			{
-				return this._Fact1.Entity;
-			}
-			set
-			{
-				Fact previousValue = this._Fact1.Entity;
-				if (((previousValue != value) 
-							|| (this._Fact1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Fact1.Entity = null;
-						previousValue.Plans.Remove(this);
-					}
-					this._Fact1.Entity = value;
-					if ((value != null))
-					{
-						value.Plans.Add(this);
-						this._Fact = value.ID;
-					}
-					else
-					{
-						this._Fact = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Fact1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Plan", Storage="_Customer1", ThisKey="Customer", OtherKey="ID", IsForeignKey=true)]
-		public Customer Customer1
-		{
-			get
-			{
-				return this._Customer1.Entity;
-			}
-			set
-			{
-				Customer previousValue = this._Customer1.Entity;
-				if (((previousValue != value) 
-							|| (this._Customer1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Customer1.Entity = null;
-						previousValue.Plans.Remove(this);
-					}
-					this._Customer1.Entity = value;
-					if ((value != null))
-					{
-						value.Plans.Add(this);
-						this._Customer = value.ID;
-					}
-					else
-					{
-						this._Customer = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Customer1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contractor_Plan", Storage="_Contractor1", ThisKey="Contractor", OtherKey="ID", IsForeignKey=true)]
-		public Contractor Contractor1
-		{
-			get
-			{
-				return this._Contractor1.Entity;
-			}
-			set
-			{
-				Contractor previousValue = this._Contractor1.Entity;
-				if (((previousValue != value) 
-							|| (this._Contractor1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Contractor1.Entity = null;
-						previousValue.Plans.Remove(this);
-					}
-					this._Contractor1.Entity = value;
-					if ((value != null))
-					{
-						value.Plans.Add(this);
-						this._Contractor = value.ID;
-					}
-					else
-					{
-						this._Contractor = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Contractor1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<Plan>();
 			}
 		}
 	}
@@ -1231,6 +782,455 @@ namespace PlanViewer.Models
 		{
 			this.SendPropertyChanging();
 			entity.Contractor1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Plan]")]
+	public partial class Plan : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Object;
+		
+		private string _WorkType;
+		
+		private string _UnitName;
+		
+		private string _CostName;
+		
+		private string _Labor;
+		
+		private string _Materials;
+		
+		private string _Mechanisms;
+		
+		private System.Nullable<int> _Customer;
+		
+		private System.Nullable<int> _Contractor;
+		
+		private System.Nullable<int> _Fact;
+		
+		private int _Status;
+		
+		private EntityRef<Contractor> _Contractor1;
+		
+		private EntityRef<Customer> _Customer1;
+		
+		private EntityRef<Fact> _Fact1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnObjectChanging(string value);
+    partial void OnObjectChanged();
+    partial void OnWorkTypeChanging(string value);
+    partial void OnWorkTypeChanged();
+    partial void OnUnitNameChanging(string value);
+    partial void OnUnitNameChanged();
+    partial void OnCostNameChanging(string value);
+    partial void OnCostNameChanged();
+    partial void OnLaborChanging(string value);
+    partial void OnLaborChanged();
+    partial void OnMaterialsChanging(string value);
+    partial void OnMaterialsChanged();
+    partial void OnMechanismsChanging(string value);
+    partial void OnMechanismsChanged();
+    partial void OnCustomerChanging(System.Nullable<int> value);
+    partial void OnCustomerChanged();
+    partial void OnContractorChanging(System.Nullable<int> value);
+    partial void OnContractorChanged();
+    partial void OnFactChanging(System.Nullable<int> value);
+    partial void OnFactChanged();
+    partial void OnStatusChanging(int value);
+    partial void OnStatusChanged();
+    #endregion
+		
+		public Plan()
+		{
+			this._Contractor1 = default(EntityRef<Contractor>);
+			this._Customer1 = default(EntityRef<Customer>);
+			this._Fact1 = default(EntityRef<Fact>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Object", DbType="NVarChar(50)")]
+		public string Object
+		{
+			get
+			{
+				return this._Object;
+			}
+			set
+			{
+				if ((this._Object != value))
+				{
+					this.OnObjectChanging(value);
+					this.SendPropertyChanging();
+					this._Object = value;
+					this.SendPropertyChanged("Object");
+					this.OnObjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkType", DbType="NVarChar(50)")]
+		public string WorkType
+		{
+			get
+			{
+				return this._WorkType;
+			}
+			set
+			{
+				if ((this._WorkType != value))
+				{
+					this.OnWorkTypeChanging(value);
+					this.SendPropertyChanging();
+					this._WorkType = value;
+					this.SendPropertyChanged("WorkType");
+					this.OnWorkTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(50)")]
+		public string UnitName
+		{
+			get
+			{
+				return this._UnitName;
+			}
+			set
+			{
+				if ((this._UnitName != value))
+				{
+					this.OnUnitNameChanging(value);
+					this.SendPropertyChanging();
+					this._UnitName = value;
+					this.SendPropertyChanged("UnitName");
+					this.OnUnitNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CostName", DbType="NVarChar(50)")]
+		public string CostName
+		{
+			get
+			{
+				return this._CostName;
+			}
+			set
+			{
+				if ((this._CostName != value))
+				{
+					this.OnCostNameChanging(value);
+					this.SendPropertyChanging();
+					this._CostName = value;
+					this.SendPropertyChanged("CostName");
+					this.OnCostNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Labor", DbType="NVarChar(50)")]
+		public string Labor
+		{
+			get
+			{
+				return this._Labor;
+			}
+			set
+			{
+				if ((this._Labor != value))
+				{
+					this.OnLaborChanging(value);
+					this.SendPropertyChanging();
+					this._Labor = value;
+					this.SendPropertyChanged("Labor");
+					this.OnLaborChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Materials", DbType="NVarChar(50)")]
+		public string Materials
+		{
+			get
+			{
+				return this._Materials;
+			}
+			set
+			{
+				if ((this._Materials != value))
+				{
+					this.OnMaterialsChanging(value);
+					this.SendPropertyChanging();
+					this._Materials = value;
+					this.SendPropertyChanged("Materials");
+					this.OnMaterialsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mechanisms", DbType="NVarChar(50)")]
+		public string Mechanisms
+		{
+			get
+			{
+				return this._Mechanisms;
+			}
+			set
+			{
+				if ((this._Mechanisms != value))
+				{
+					this.OnMechanismsChanging(value);
+					this.SendPropertyChanging();
+					this._Mechanisms = value;
+					this.SendPropertyChanged("Mechanisms");
+					this.OnMechanismsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer", DbType="Int")]
+		public System.Nullable<int> Customer
+		{
+			get
+			{
+				return this._Customer;
+			}
+			set
+			{
+				if ((this._Customer != value))
+				{
+					if (this._Customer1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCustomerChanging(value);
+					this.SendPropertyChanging();
+					this._Customer = value;
+					this.SendPropertyChanged("Customer");
+					this.OnCustomerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contractor", DbType="Int")]
+		public System.Nullable<int> Contractor
+		{
+			get
+			{
+				return this._Contractor;
+			}
+			set
+			{
+				if ((this._Contractor != value))
+				{
+					if (this._Contractor1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnContractorChanging(value);
+					this.SendPropertyChanging();
+					this._Contractor = value;
+					this.SendPropertyChanged("Contractor");
+					this.OnContractorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fact", DbType="Int")]
+		public System.Nullable<int> Fact
+		{
+			get
+			{
+				return this._Fact;
+			}
+			set
+			{
+				if ((this._Fact != value))
+				{
+					if (this._Fact1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFactChanging(value);
+					this.SendPropertyChanging();
+					this._Fact = value;
+					this.SendPropertyChanged("Fact");
+					this.OnFactChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
+		public int Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contractor_Plan", Storage="_Contractor1", ThisKey="Contractor", OtherKey="ID", IsForeignKey=true)]
+		public Contractor Contractor1
+		{
+			get
+			{
+				return this._Contractor1.Entity;
+			}
+			set
+			{
+				Contractor previousValue = this._Contractor1.Entity;
+				if (((previousValue != value) 
+							|| (this._Contractor1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Contractor1.Entity = null;
+						previousValue.Plans.Remove(this);
+					}
+					this._Contractor1.Entity = value;
+					if ((value != null))
+					{
+						value.Plans.Add(this);
+						this._Contractor = value.ID;
+					}
+					else
+					{
+						this._Contractor = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Contractor1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Plan", Storage="_Customer1", ThisKey="Customer", OtherKey="ID", IsForeignKey=true)]
+		public Customer Customer1
+		{
+			get
+			{
+				return this._Customer1.Entity;
+			}
+			set
+			{
+				Customer previousValue = this._Customer1.Entity;
+				if (((previousValue != value) 
+							|| (this._Customer1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Customer1.Entity = null;
+						previousValue.Plans.Remove(this);
+					}
+					this._Customer1.Entity = value;
+					if ((value != null))
+					{
+						value.Plans.Add(this);
+						this._Customer = value.ID;
+					}
+					else
+					{
+						this._Customer = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Customer1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fact_Plan", Storage="_Fact1", ThisKey="Fact", OtherKey="ID", IsForeignKey=true)]
+		public Fact Fact1
+		{
+			get
+			{
+				return this._Fact1.Entity;
+			}
+			set
+			{
+				Fact previousValue = this._Fact1.Entity;
+				if (((previousValue != value) 
+							|| (this._Fact1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Fact1.Entity = null;
+						previousValue.Plans.Remove(this);
+					}
+					this._Fact1.Entity = value;
+					if ((value != null))
+					{
+						value.Plans.Add(this);
+						this._Fact = value.ID;
+					}
+					else
+					{
+						this._Fact = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Fact1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

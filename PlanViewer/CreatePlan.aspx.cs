@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PlanViewer.Models;
@@ -9,9 +10,39 @@ namespace PlanViewer
 {
     public partial class createPlan : System.Web.UI.Page
     {
+        string user;
+        int id;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                user = Membership.GetUser().UserName;
+            }
+            catch (Exception ex)
+            {
+                Alert.Show("Нет прав доступа, пожалуйста зайдите как Подрядчик");
+                Response.Redirect("Account/Login.aspx");
+            }
+            bool hasAccess = false;
+            foreach (var role in Roles.GetRolesForUser())
+            {
+                if (role.Equals(Global.contractorRole)) hasAccess = true;
+            }
+            if (!hasAccess)
+            {
+                Alert.Show("Нет прав доступа, пожалуйста зайдите как Подрядчик");
+                Response.Redirect("Account/Login.aspx");
+            }
+            var db = new DBClassesDataContext();
+            var query =
+                from contractor in db.Contractors
+                where contractor.Email.Equals(user)
+                select contractor;
+            if (query != null)
+            {
+                id = query.ToArray()[0].ID;
+                contractor.Text = user;
+            }
         }
 
         protected void ButtonSend_Click(object sender, EventArgs e)
@@ -26,7 +57,7 @@ namespace PlanViewer
             var db = new DBClassesDataContext();            
             Plan p = new Plan {  Status = 3, Object = workObject.Text, WorkType = typeOfWork.Text, 
                 CostName = nameOfCost.Text, UnitName = measure.Text, Labor = labour.Text, 
-                Materials = materials.Text, Mechnisms = mechanisms.Text,
+                Materials = materials.Text, Mechanisms = mechanisms.Text, Contractor = id
             };
             
             db.Plans.InsertOnSubmit(p);

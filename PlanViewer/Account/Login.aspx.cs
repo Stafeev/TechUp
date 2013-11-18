@@ -58,6 +58,14 @@ namespace PlanViewer
                     return;
                 }
                 FormsAuthentication.SetAuthCookie(email, true);
+                try
+                {
+                    Roles.AddUserToRole(email, Global.customerRole);
+                }
+                catch (Exception ex)
+                {
+                    ///current current user has been already registered as customer
+                }
                 Response.Redirect("../ViewPlan.aspx");
             }
             else
@@ -99,7 +107,14 @@ namespace PlanViewer
                     return;
                 }
                 FormsAuthentication.SetAuthCookie(email, true);
-                
+                try
+                {
+                    Roles.AddUserToRole(email, Global.contractorRole);
+                }
+                catch (Exception ex)
+                {
+                    ///current current user has been already registered as contractor
+                }
                 Response.Redirect("../CreatePlan.aspx");
             }
             else
@@ -141,6 +156,7 @@ namespace PlanViewer
                 db.SubmitChanges();
                 Membership.CreateUser(email, pas);
                 FormsAuthentication.SetAuthCookie(email, true);
+                Roles.AddUserToRole(email, Global.customerRole);
                 Response.Redirect("../ViewPlan.aspx");
                 //Alert.Show("Запись успешно добавлена");
             }
@@ -184,6 +200,7 @@ namespace PlanViewer
                  db.SubmitChanges();
                  Membership.CreateUser(email, pas);
                  FormsAuthentication.SetAuthCookie(email, true);
+                 Roles.AddUserToRole(email, Global.contractorRole);
                  Response.Redirect("../createPlan.aspx");
                  //Alert.Show("Запись успешно добавлена");
              }
