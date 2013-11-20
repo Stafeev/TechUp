@@ -68,7 +68,28 @@ namespace PlanViewer
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                string[] roles = Roles.GetRolesForUser();
+                if (roles[0].Equals(Global.contractorRole))
+                {
+                    planoption.InnerText = "Создать план";
+                    planoption.HRef = "CreatePlan.aspx";
+                    factlink.Visible = true;
+                }
+                else
+                {
+                    planoption.InnerText = "Просмотр план/факта";
+                    planoption.HRef = "ViewPlan.aspx";
+                    factlink.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {/// 
+                /// It is handled by inherited pages
+                /// 
+                Response.Redirect("Account/Login.aspx");
+            }
         }
         public IQueryable<Plan> GetPlans()
         {

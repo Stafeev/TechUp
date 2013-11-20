@@ -47,9 +47,9 @@
             </div>
      <br>
      <div style="margin-left: auto; margin-right: auto; text-align: center;">
-    <a class="green goodbutton" a id="customerRegister" rel="leanModal" name="signup" href="#signupCustomer">Зарегистрировать заказчика</a>
+    <a class="green goodbutton" id="customerRegister" rel="leanModal" href="#signupCustomer">Зарегистрировать заказчика</a>
     <br>
-    <a class="green goodbutton" a id="contractorRegister" rel="leanModal" name="signup" href="#signupContractor">Зарегистрировать подрядчика</a>
+    <a class="green goodbutton" id="contractorRegister" rel="leanModal" href="#signupContractor">Зарегистрировать подрядчика</a>
                         <div id="signupCustomer" class="signup" style="display: none; position:fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
 			<div class="signup-ct">
 				<div class="signup-header">

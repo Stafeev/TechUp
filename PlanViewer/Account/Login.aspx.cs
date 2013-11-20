@@ -153,7 +153,16 @@ namespace PlanViewer
                 db.Customers.InsertOnSubmit(c);
             try
             {
-                db.SubmitChanges();
+                db.SubmitChanges();                
+            }
+            catch (Exception ex)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "нет записи", true);
+                System.Diagnostics.Debug.Print(ex.StackTrace);
+                return;
+            }
+            try
+            {
                 Membership.CreateUser(email, pas);
                 FormsAuthentication.SetAuthCookie(email, true);
                 Roles.AddUserToRole(email, Global.customerRole);
@@ -162,10 +171,8 @@ namespace PlanViewer
             }
             catch (Exception ex)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "нет записи", true);
-                System.Diagnostics.Debug.Print(ex.StackTrace);
-            }
-            //Response.Redirect("http://.../Default.aspx");
+                Alert.Show("Пользователь с таким email уже зарегистрирован!");
+            }            
          }
          protected void registerContractor(object sender, EventArgs e)
          {
@@ -197,18 +204,27 @@ namespace PlanViewer
              db.Contractors.InsertOnSubmit(c);
              try
              {
-                 db.SubmitChanges();
-                 Membership.CreateUser(email, pas);
-                 FormsAuthentication.SetAuthCookie(email, true);
-                 Roles.AddUserToRole(email, Global.contractorRole);
-                 Response.Redirect("../createPlan.aspx");
-                 //Alert.Show("Запись успешно добавлена");
+                 db.SubmitChanges();                 
              }
              catch
              {
                  ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "нет записи", true);
+                 return;
              }
              
+             try
+             {
+                 Membership.CreateUser(email, pas);
+                 FormsAuthentication.SetAuthCookie(email, true);
+                 Roles.AddUserToRole(email, Global.contractorRole);
+                 Response.Redirect("../createPlan.aspx");
+             }
+             catch (Exception ex)
+             {
+                 Alert.Show("Пользователь с таким email уже зарегистрирован!");
+             }
+             
+             //Alert.Show("Запись успешно добавлена");
          }
     }
 }

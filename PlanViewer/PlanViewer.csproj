@@ -194,6 +194,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="CreatePlan.aspx" />
+    <Content Include="EnterFact.aspx" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\heroAccent.png" />
@@ -444,6 +445,13 @@
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EnterFact.aspx.cs">
+      <DependentUpon>EnterFact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EnterFact.aspx.designer.cs">
+      <DependentUpon>EnterFact.aspx</DependentUpon>
     </Compile>
     <Compile Include="LoginRegister.Master.cs">
       <DependentUpon>LoginRegister.Master</DependentUpon>
