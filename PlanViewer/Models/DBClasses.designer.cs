@@ -30,9 +30,6 @@ namespace PlanViewer.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertFact(Fact instance);
-    partial void UpdateFact(Fact instance);
-    partial void DeleteFact(Fact instance);
     partial void InsertCustomer(Customer instance);
     partial void UpdateCustomer(Customer instance);
     partial void DeleteCustomer(Customer instance);
@@ -42,6 +39,9 @@ namespace PlanViewer.Models
     partial void InsertPlan(Plan instance);
     partial void UpdatePlan(Plan instance);
     partial void DeletePlan(Plan instance);
+    partial void InsertFact(Fact instance);
+    partial void UpdateFact(Fact instance);
+    partial void DeleteFact(Fact instance);
     #endregion
 		
 		public DBClassesDataContext() : 
@@ -74,14 +74,6 @@ namespace PlanViewer.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Fact> Facts
-		{
-			get
-			{
-				return this.GetTable<Fact>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Customer> Customers
 		{
 			get
@@ -105,263 +97,13 @@ namespace PlanViewer.Models
 				return this.GetTable<Plan>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Fact")]
-	public partial class Fact : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _FactObject;
-		
-		private string _WorkType;
-		
-		private string _UnitName;
-		
-		private string _CostName;
-		
-		private string _Labor;
-		
-		private string _Materials;
-		
-		private string _Mechanisms;
-		
-		private EntitySet<Plan> _Plans;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnFactObjectChanging(string value);
-    partial void OnFactObjectChanged();
-    partial void OnWorkTypeChanging(string value);
-    partial void OnWorkTypeChanged();
-    partial void OnUnitNameChanging(string value);
-    partial void OnUnitNameChanged();
-    partial void OnCostNameChanging(string value);
-    partial void OnCostNameChanged();
-    partial void OnLaborChanging(string value);
-    partial void OnLaborChanged();
-    partial void OnMaterialsChanging(string value);
-    partial void OnMaterialsChanged();
-    partial void OnMechanismsChanging(string value);
-    partial void OnMechanismsChanged();
-    #endregion
-		
-		public Fact()
-		{
-			this._Plans = new EntitySet<Plan>(new Action<Plan>(this.attach_Plans), new Action<Plan>(this.detach_Plans));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		public System.Data.Linq.Table<Fact> Facts
 		{
 			get
 			{
-				return this._ID;
+				return this.GetTable<Fact>();
 			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FactObject", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string FactObject
-		{
-			get
-			{
-				return this._FactObject;
-			}
-			set
-			{
-				if ((this._FactObject != value))
-				{
-					this.OnFactObjectChanging(value);
-					this.SendPropertyChanging();
-					this._FactObject = value;
-					this.SendPropertyChanged("FactObject");
-					this.OnFactObjectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkType", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string WorkType
-		{
-			get
-			{
-				return this._WorkType;
-			}
-			set
-			{
-				if ((this._WorkType != value))
-				{
-					this.OnWorkTypeChanging(value);
-					this.SendPropertyChanging();
-					this._WorkType = value;
-					this.SendPropertyChanged("WorkType");
-					this.OnWorkTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string UnitName
-		{
-			get
-			{
-				return this._UnitName;
-			}
-			set
-			{
-				if ((this._UnitName != value))
-				{
-					this.OnUnitNameChanging(value);
-					this.SendPropertyChanging();
-					this._UnitName = value;
-					this.SendPropertyChanged("UnitName");
-					this.OnUnitNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CostName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string CostName
-		{
-			get
-			{
-				return this._CostName;
-			}
-			set
-			{
-				if ((this._CostName != value))
-				{
-					this.OnCostNameChanging(value);
-					this.SendPropertyChanging();
-					this._CostName = value;
-					this.SendPropertyChanged("CostName");
-					this.OnCostNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Labor", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Labor
-		{
-			get
-			{
-				return this._Labor;
-			}
-			set
-			{
-				if ((this._Labor != value))
-				{
-					this.OnLaborChanging(value);
-					this.SendPropertyChanging();
-					this._Labor = value;
-					this.SendPropertyChanged("Labor");
-					this.OnLaborChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Materials", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Materials
-		{
-			get
-			{
-				return this._Materials;
-			}
-			set
-			{
-				if ((this._Materials != value))
-				{
-					this.OnMaterialsChanging(value);
-					this.SendPropertyChanging();
-					this._Materials = value;
-					this.SendPropertyChanged("Materials");
-					this.OnMaterialsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mechanisms", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Mechanisms
-		{
-			get
-			{
-				return this._Mechanisms;
-			}
-			set
-			{
-				if ((this._Mechanisms != value))
-				{
-					this.OnMechanismsChanging(value);
-					this.SendPropertyChanging();
-					this._Mechanisms = value;
-					this.SendPropertyChanged("Mechanisms");
-					this.OnMechanismsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fact_Plan", Storage="_Plans", ThisKey="ID", OtherKey="Fact")]
-		public EntitySet<Plan> Plans
-		{
-			get
-			{
-				return this._Plans;
-			}
-			set
-			{
-				this._Plans.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Plans(Plan entity)
-		{
-			this.SendPropertyChanging();
-			entity.Fact1 = this;
-		}
-		
-		private void detach_Plans(Plan entity)
-		{
-			this.SendPropertyChanging();
-			entity.Fact1 = null;
 		}
 	}
 	
@@ -811,15 +553,17 @@ namespace PlanViewer.Models
 		
 		private System.Nullable<int> _Contractor;
 		
-		private System.Nullable<int> _Fact;
-		
 		private int _Status;
+		
+		private int _PlanID;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private EntitySet<Fact> _Facts;
 		
 		private EntityRef<Contractor> _Contractor1;
 		
 		private EntityRef<Customer> _Customer1;
-		
-		private EntityRef<Fact> _Fact1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -845,17 +589,19 @@ namespace PlanViewer.Models
     partial void OnCustomerChanged();
     partial void OnContractorChanging(System.Nullable<int> value);
     partial void OnContractorChanged();
-    partial void OnFactChanging(System.Nullable<int> value);
-    partial void OnFactChanged();
     partial void OnStatusChanging(int value);
     partial void OnStatusChanged();
+    partial void OnPlanIDChanging(int value);
+    partial void OnPlanIDChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
     #endregion
 		
 		public Plan()
 		{
+			this._Facts = new EntitySet<Fact>(new Action<Fact>(this.attach_Facts), new Action<Fact>(this.detach_Facts));
 			this._Contractor1 = default(EntityRef<Contractor>);
 			this._Customer1 = default(EntityRef<Customer>);
-			this._Fact1 = default(EntityRef<Fact>);
 			OnCreated();
 		}
 		
@@ -1067,30 +813,6 @@ namespace PlanViewer.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fact", DbType="Int")]
-		public System.Nullable<int> Fact
-		{
-			get
-			{
-				return this._Fact;
-			}
-			set
-			{
-				if ((this._Fact != value))
-				{
-					if (this._Fact1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFactChanging(value);
-					this.SendPropertyChanging();
-					this._Fact = value;
-					this.SendPropertyChanged("Fact");
-					this.OnFactChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
 		public int Status
 		{
@@ -1108,6 +830,59 @@ namespace PlanViewer.Models
 					this.SendPropertyChanged("Status");
 					this.OnStatusChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlanID", DbType="Int NOT NULL")]
+		public int PlanID
+		{
+			get
+			{
+				return this._PlanID;
+			}
+			set
+			{
+				if ((this._PlanID != value))
+				{
+					this.OnPlanIDChanging(value);
+					this.SendPropertyChanging();
+					this._PlanID = value;
+					this.SendPropertyChanged("PlanID");
+					this.OnPlanIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Plan_Fact", Storage="_Facts", ThisKey="ID", OtherKey="ExtPlanID")]
+		public EntitySet<Fact> Facts
+		{
+			get
+			{
+				return this._Facts;
+			}
+			set
+			{
+				this._Facts.Assign(value);
 			}
 		}
 		
@@ -1179,36 +954,381 @@ namespace PlanViewer.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fact_Plan", Storage="_Fact1", ThisKey="Fact", OtherKey="ID", IsForeignKey=true)]
-		public Fact Fact1
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Facts(Fact entity)
+		{
+			this.SendPropertyChanging();
+			entity.Plan = this;
+		}
+		
+		private void detach_Facts(Fact entity)
+		{
+			this.SendPropertyChanging();
+			entity.Plan = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Fact")]
+	public partial class Fact : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _FactObject;
+		
+		private string _WorkType;
+		
+		private string _UnitName;
+		
+		private string _CostName;
+		
+		private string _Labor;
+		
+		private string _Materials;
+		
+		private string _Mechanisms;
+		
+		private System.Nullable<int> _ExtPlanID;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private System.Nullable<int> _FactID;
+		
+		private System.Nullable<int> _Status;
+		
+		private EntityRef<Plan> _Plan;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnFactObjectChanging(string value);
+    partial void OnFactObjectChanged();
+    partial void OnWorkTypeChanging(string value);
+    partial void OnWorkTypeChanged();
+    partial void OnUnitNameChanging(string value);
+    partial void OnUnitNameChanged();
+    partial void OnCostNameChanging(string value);
+    partial void OnCostNameChanged();
+    partial void OnLaborChanging(string value);
+    partial void OnLaborChanged();
+    partial void OnMaterialsChanging(string value);
+    partial void OnMaterialsChanged();
+    partial void OnMechanismsChanging(string value);
+    partial void OnMechanismsChanged();
+    partial void OnExtPlanIDChanging(System.Nullable<int> value);
+    partial void OnExtPlanIDChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnFactIDChanging(System.Nullable<int> value);
+    partial void OnFactIDChanged();
+    partial void OnStatusChanging(System.Nullable<int> value);
+    partial void OnStatusChanged();
+    #endregion
+		
+		public Fact()
+		{
+			this._Plan = default(EntityRef<Plan>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
 		{
 			get
 			{
-				return this._Fact1.Entity;
+				return this._ID;
 			}
 			set
 			{
-				Fact previousValue = this._Fact1.Entity;
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FactObject", DbType="NVarChar(50)")]
+		public string FactObject
+		{
+			get
+			{
+				return this._FactObject;
+			}
+			set
+			{
+				if ((this._FactObject != value))
+				{
+					this.OnFactObjectChanging(value);
+					this.SendPropertyChanging();
+					this._FactObject = value;
+					this.SendPropertyChanged("FactObject");
+					this.OnFactObjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkType", DbType="NVarChar(50)")]
+		public string WorkType
+		{
+			get
+			{
+				return this._WorkType;
+			}
+			set
+			{
+				if ((this._WorkType != value))
+				{
+					this.OnWorkTypeChanging(value);
+					this.SendPropertyChanging();
+					this._WorkType = value;
+					this.SendPropertyChanged("WorkType");
+					this.OnWorkTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(50)")]
+		public string UnitName
+		{
+			get
+			{
+				return this._UnitName;
+			}
+			set
+			{
+				if ((this._UnitName != value))
+				{
+					this.OnUnitNameChanging(value);
+					this.SendPropertyChanging();
+					this._UnitName = value;
+					this.SendPropertyChanged("UnitName");
+					this.OnUnitNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CostName", DbType="NVarChar(50)")]
+		public string CostName
+		{
+			get
+			{
+				return this._CostName;
+			}
+			set
+			{
+				if ((this._CostName != value))
+				{
+					this.OnCostNameChanging(value);
+					this.SendPropertyChanging();
+					this._CostName = value;
+					this.SendPropertyChanged("CostName");
+					this.OnCostNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Labor", DbType="NVarChar(50)")]
+		public string Labor
+		{
+			get
+			{
+				return this._Labor;
+			}
+			set
+			{
+				if ((this._Labor != value))
+				{
+					this.OnLaborChanging(value);
+					this.SendPropertyChanging();
+					this._Labor = value;
+					this.SendPropertyChanged("Labor");
+					this.OnLaborChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Materials", DbType="NVarChar(50)")]
+		public string Materials
+		{
+			get
+			{
+				return this._Materials;
+			}
+			set
+			{
+				if ((this._Materials != value))
+				{
+					this.OnMaterialsChanging(value);
+					this.SendPropertyChanging();
+					this._Materials = value;
+					this.SendPropertyChanged("Materials");
+					this.OnMaterialsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mechanisms", DbType="NVarChar(50)")]
+		public string Mechanisms
+		{
+			get
+			{
+				return this._Mechanisms;
+			}
+			set
+			{
+				if ((this._Mechanisms != value))
+				{
+					this.OnMechanismsChanging(value);
+					this.SendPropertyChanging();
+					this._Mechanisms = value;
+					this.SendPropertyChanged("Mechanisms");
+					this.OnMechanismsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtPlanID", DbType="Int")]
+		public System.Nullable<int> ExtPlanID
+		{
+			get
+			{
+				return this._ExtPlanID;
+			}
+			set
+			{
+				if ((this._ExtPlanID != value))
+				{
+					if (this._Plan.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnExtPlanIDChanging(value);
+					this.SendPropertyChanging();
+					this._ExtPlanID = value;
+					this.SendPropertyChanged("ExtPlanID");
+					this.OnExtPlanIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FactID", DbType="Int")]
+		public System.Nullable<int> FactID
+		{
+			get
+			{
+				return this._FactID;
+			}
+			set
+			{
+				if ((this._FactID != value))
+				{
+					this.OnFactIDChanging(value);
+					this.SendPropertyChanging();
+					this._FactID = value;
+					this.SendPropertyChanged("FactID");
+					this.OnFactIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int")]
+		public System.Nullable<int> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Plan_Fact", Storage="_Plan", ThisKey="ExtPlanID", OtherKey="ID", IsForeignKey=true)]
+		public Plan Plan
+		{
+			get
+			{
+				return this._Plan.Entity;
+			}
+			set
+			{
+				Plan previousValue = this._Plan.Entity;
 				if (((previousValue != value) 
-							|| (this._Fact1.HasLoadedOrAssignedValue == false)))
+							|| (this._Plan.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Fact1.Entity = null;
-						previousValue.Plans.Remove(this);
+						this._Plan.Entity = null;
+						previousValue.Facts.Remove(this);
 					}
-					this._Fact1.Entity = value;
+					this._Plan.Entity = value;
 					if ((value != null))
 					{
-						value.Plans.Add(this);
-						this._Fact = value.ID;
+						value.Facts.Add(this);
+						this._ExtPlanID = value.ID;
 					}
 					else
 					{
-						this._Fact = default(Nullable<int>);
+						this._ExtPlanID = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("Fact1");
+					this.SendPropertyChanged("Plan");
 				}
 			}
 		}
