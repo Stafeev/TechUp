@@ -13,14 +13,14 @@
             
             <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="PlanID" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true" OnDataBound="DropDownList1_DataBound" >
             </asp:DropDownList>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TeamProjectDBConnectionString1 %>" SelectCommand="SELECT Customer.Name, [Plan].PlanID FROM Contractor INNER JOIN [Plan] ON Contractor.ID = [Plan].Contractor INNER JOIN Customer ON [Plan].Customer = Customer.ID">
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TeamProjectDBConnectionString1 %>" SelectCommand="SELECT Customer.Name, [Plan].PlanID FROM Contractor INNER JOIN [Plan] ON Contractor.ID = [Plan].Contractor INNER JOIN Customer ON [Plan].Customer = Customer.ID GROUP BY [Plan].PlanID, Customer.Name">
             </asp:SqlDataSource>
             
         </div>
     </asp:Panel>
     <div>
         <asp:Panel ID="Panel2" runat ="server">
-            <asp:Table ID="Table1" runat="server" Caption ="План">
+            <asp:Table ID="Table1" runat="server" Caption ="План" BackColor="LightGreen" BorderWidth="1px">
                 <asp:TableHeaderRow>
                     <asp:TableHeaderCell Text="№  "></asp:TableHeaderCell>
                     <asp:TableHeaderCell Text="Объект работ"></asp:TableHeaderCell>
@@ -37,7 +37,7 @@
     </div>
         
         <asp:Panel runat="server" ID="Panel3">
-            <asp:GridView GridLines="Both" Width="" Caption="Факт" ID="GridView1" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating">
+            <asp:GridView BackColor="LightBlue" GridLines="Both" BorderWidth="1px" Width="" Caption="Факт" ID="GridView1" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating">
         <Columns>
             <asp:TemplateField HeaderText="№  " HeaderStyle-HorizontalAlign="Center">
                 <EditItemTemplate>

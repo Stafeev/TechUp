@@ -68,7 +68,7 @@
                         <li><a runat="server" href="~/Contact">Контакты</a></li>
                         <!--<li><a id="viewpl" runat="server" href="ViewPlan.aspx">Просмотреть план</a></li>-->
                         <li><a id="planoption" runat="server" href="CreatePlan.aspx">Создать план</a></li>
-                        <li><a id="factlink" runat="server" href="CreatePlan.aspx">Заполнить факт</a></li>
+                        <li><a id="factlink" runat="server" href="EnterFact.aspx">Заполнить факт</a></li>
                     </ul>
                 </nav>
             </div>
