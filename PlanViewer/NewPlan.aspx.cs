@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -64,7 +65,7 @@ namespace PlanViewer
             }
             else
             {
-                if (Table1.Rows.Count > 1)
+                // (Table1.Rows.Count > 1)
                 {
                     var db = new DBClassesDataContext();
                     var query =
