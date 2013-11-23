@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -12,7 +11,7 @@ using PlanViewer.Models;
 
 namespace PlanViewer
 {
-    public partial class CreatePlan1 : System.Web.UI.Page
+    public partial class NewPlan : System.Web.UI.Page
     {
         string user;
         protected int id;
@@ -47,87 +46,13 @@ namespace PlanViewer
                 select contractor;
             if (query != null)
             {
-                id = query.ToArray()[0].ID;                
+                id = query.ToArray()[0].ID;
             }
-            //Session["UserID"] = id;   
-            //DropDownList1.DataBind();
-            try
-            {
-                if (int.Parse(DropDownList1.SelectedValue) > 0)
-                    buildPlanTable();
-            }
-            catch
-            {
-            }
-            if (!Page.IsPostBack)
-            {
-                gvbind();    
-            }
-        }
-        private void buildPlanTable()
-        {
-            for (int i = 1; i < Table1.Rows.Count; i++)
-            {
-                Table1.Rows.RemoveAt(i);
-            }
-            var db = new DBClassesDataContext();
-            var query =
-                from plan in db.Plans
-                where plan.PlanID == int.Parse(DropDownList1.SelectedValue)
-                select plan;
-            Plan[] results = query.ToArray<Plan>();
-            foreach (Plan item in results)
-            {
-
-                TableRow tr = new TableRow();
-                List<TableCell> cells = new List<TableCell>();
-                TableCell c = new TableCell();
-                c.Text = item.ID + "";
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.Object;
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.WorkType;
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.CostName;
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.UnitName;
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.Labor;
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.Materials;
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.Mechanisms;
-                cells.Add(c);
-                c = new TableCell();
-                c.Text = item.Status+"";
-                //c.Enabled = true;
-                cells.Add(c);
-                foreach (TableCell cell in cells)
-                {
-                    tr.Cells.Add(cell);
-                }
-                Table1.Rows.Add(tr);
-                planID = int.Parse(DropDownList1.SelectedValue);                
-            }
-        }
-
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-        {            
-            buildPlanTable();
-            GridView1.EditIndex = -1;
-            gvbind();
         }
         protected void gvbind()
         {
             conn.Open();
-            SqlCommand cmd = new SqlCommand("Select ID, FactObject, WorkType, UnitName, CostName, Labor, Materials, Mechanisms from Fact where FactID=" + planID, conn);            
+            SqlCommand cmd = new SqlCommand("Select ID, FactObject, WorkType, UnitName, CostName, Labor, Materials, Mechanisms from Fact where FactID=" + planID, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -151,7 +76,7 @@ namespace PlanViewer
                     for (int i = 0; i < plans.Length; i++)
                     {
                         Fact f = new Fact { FactID = planID, CostName = plans[i].CostName, FactObject = plans[i].Object, Labor = plans[i].Labor, Materials = plans[i].Materials, Mechanisms = plans[i].Mechanisms, UnitName = plans[i].UnitName, WorkType = plans[i].WorkType, Status = 1 };
-                        facts.Add(f);                        
+                        facts.Add(f);
                     }
                     db.Facts.InsertAllOnSubmit<Fact>(facts);
                     try
@@ -173,7 +98,7 @@ namespace PlanViewer
                         GridView1.DataSource = ds;
                         GridView1.DataBind();
                     }
-                    else 
+                    else
                     {
                         ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
                         GridView1.DataSource = ds;
@@ -184,7 +109,7 @@ namespace PlanViewer
                         GridView1.Rows[0].Cells[0].ColumnSpan = columncount;
                         GridView1.Rows[0].Cells[0].Text = "Ошибка";
                     }
-                }                
+                }
             }
         }
 
@@ -200,11 +125,11 @@ namespace PlanViewer
         }
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            GridView1.EditIndex = e.NewEditIndex;           
+            GridView1.EditIndex = e.NewEditIndex;
             gvbind();
         }
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {            
+        {
             GridViewRow row = (GridViewRow)GridView1.Rows[e.RowIndex];
             Label lblID = (Label)row.FindControl("ID");
             TextBox factObject = (TextBox)row.FindControl("FactObject");
@@ -215,7 +140,7 @@ namespace PlanViewer
             TextBox materials = (TextBox)row.FindControl("Materials");
             TextBox mechanisms = (TextBox)row.FindControl("Mechanisms");
 
-            int factId = int.Parse(lblID.Text);            
+            int factId = int.Parse(lblID.Text);
             GridView1.EditIndex = -1;
             conn.Open();
             SqlCommand cmd = new SqlCommand("update Fact set FactObject='" + factObject.Text
@@ -227,9 +152,9 @@ namespace PlanViewer
                 + "', Mechanisms='" + mechanisms.Text
                 + "', FactID=" + planID
                 + ", Status=" + 1
-                + " where ID=" + factId, conn);            
+                + " where ID=" + factId, conn);
             cmd.ExecuteNonQuery();
-            conn.Close();            
+            conn.Close();
             gvbind();
 
             //GridView1.DataBind();
@@ -244,30 +169,5 @@ namespace PlanViewer
             GridView1.EditIndex = -1;
             gvbind();
         }
-
-        protected void DropDownList1_DataBound(object sender, EventArgs e)
-        {
-            buildPlanTable();
-            gvbind();
-        }
-
-        protected void approve_Click(object sender, EventArgs e)
-        {
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("update Fact set Status=2 where FactID=" + planID, conn);
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            Alert.Show("Значения сохранены");
-            Response.Redirect("CreatePlan.aspx");
-        }
-
-        protected void Cancel_Click(object sender, EventArgs e)
-        {
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("delete FROM Fact where FactID=" + planID, conn);
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            Response.Redirect("CreatePlan.aspx");
-        }        
     }
 }
