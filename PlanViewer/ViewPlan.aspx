@@ -5,92 +5,84 @@
     
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-<!-- jTable style file -->
-<link href="/Scripts/jtable/themes/standard/blue/jtable_blue.css" rel="stylesheet" type="text/css" />
- 
-<!-- A helper library for JSON serialization -->
-<script type="text/javascript" src="/Scripts/jtable/external/json2.js"></script>
-<!-- Core jTable script file -->
-<script type="text/javascript" src="/Scripts/jtable/jquery.jtable.js"></script>
-<!-- ASP.NET Web Forms extension for jTable -->
-<script type="text/javascript" src="/Scripts/jtable/extensions/jquery.jtable.aspnetpagemethods.js"></script>
-    <div id="PlanTableContainer"></div>
-    <script type="text/javascript">
 
-        $(document).ready(function () {
 
-            //Prepare jtable plugin
-            $('#PlanTableContainer').jtable({
-                title: 'Просмотреть план',
-                paging: true, //Enables paging
-                pageSize: 10, //Actually this is not needed since default value is 10.
-                sorting: true, //Enables sorting
-                defaultSorting: 'Name ASC', //Optional. Default sorting on first load.
-                actions: {
-                    listAction: '/PagingAndSorting.aspx/PlanList',
-                    createAction: '/PagingAndSorting.aspx/CreatePlan',
-                    updateAction: '/PagingAndSorting.aspx/UpdatePlan',
-                    deleteAction: '/PagingAndSorting.aspx/DeletePlan'
-                },
-                fields: {
-                    ID: {
-                        title: 'ID',
-                        key: true,
-                        create: false,
-                        edit: false,
-                        list: false
-                    },
-                    Customer: {
-                        title: 'Заказчик',
-                        width: '23%'
-                    },
-                    Contractor: {
-                        title: 'Подрядчик',
-                        width: '23%'
-                    },
-                    WorkObj: {
-                        title: 'Объект работ',
-                        list: false
-                    },
-                    TypeOfWork: {
-                        title: 'Вид работ',
-                        list: false
-                    },
-                    CostName: {
-                        title: 'Наименование единичной расценки',
-                        list: false
-                    },
-                    UnitName: {
-                        title: 'Единица изменерия',
-                    },
-                    Labor: {
-                        title: 'Трудозатраты',
-                        list: false
-                    },
-                    Materials: {
-                        title: 'Материалы',
-                        list: false
-                    },
-                    Mechnisms: {
-                        title: 'Механизмы',
-                        list: false
-                    },
-                    Status: {
-                        title: 'Текущий статус',
-                        width: '13%',
-                        options: { 'T': 'Подтверджен', 'F': 'Отклонен','D':'Ожидает подтверждения' }
-                    },
-                    
-                }
-            });
-
-            //Load student list from server
-            $('#PlanTableContainer').jtable('load');
-        });
-
-</script>
-
-    <asp:SqlDataSource ID="PlansDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:TeamProjectDBConnectionString1 %>" OnSelecting="PlansDataSource_Selecting" SelectCommand="SELECT 'Plan #' + CAST([ID] AS varchar(5)) +' On object'+ [Object] as res FROM [Plan]"></asp:SqlDataSource>
+    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="PlanID" OnDataBound="DropDownList1_DataBound" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged1">
+    </asp:DropDownList>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TeamProjectDBConnectionString1 %>" SelectCommand="SELECT DISTINCT Contractor.Name, [Plan].PlanID FROM [Plan] INNER JOIN Contractor ON [Plan].Contractor = Contractor.ID"></asp:SqlDataSource>
+    <asp:Panel runat="server" ID="Panel3">
+            <asp:GridView BackColor="LightBlue" GridLines="Both" BorderWidth="1px" Width="" Caption="Факт" ID="GridView1" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" >
+        <Columns>
+            <asp:TemplateField HeaderText="№  " HeaderStyle-HorizontalAlign="Center">
+                <EditItemTemplate>
+                    <asp:Label ID="ID" runat="server" Text='<%# Bind("ID") %>'></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="ID" runat="server" Text='<%# Bind("ID") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Объект работ">
+                <EditItemTemplate>
+                    <asp:TextBox ID="FactObject" runat="server" Text='<%# Bind("Object") %>' ></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="FactObjectlab" runat="server" Text='<%# Bind("Object") %>' ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Вид работ">
+                <EditItemTemplate>
+                    <asp:TextBox ID="WorkType" runat="server" Text='<%# Bind("WorkType") %>' ></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="WorkTypelab" runat="server" Text='<%# Bind("WorkType") %>' ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Наименование единичной расценки">
+                <EditItemTemplate>
+                    <asp:TextBox ID="CostName" runat="server" Text='<%# Bind("CostName") %>' ></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="CostNamelab" runat="server" Text='<%# Bind("CostName") %>' ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Единицы измерения">
+                <EditItemTemplate>
+                    <asp:TextBox ID="UnitName" runat="server" Text='<%# Bind("UnitName") %>' ></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="UnitNamelab" runat="server" Text='<%# Bind("UnitName") %>' ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Трудозатраты">
+                <EditItemTemplate>
+                    <asp:TextBox ID="Labor" runat="server" Text='<%# Bind("Labor") %>' ></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Laborlab" runat="server" Text='<%# Bind("Labor") %>' ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Материалы">
+                <EditItemTemplate>
+                    <asp:TextBox ID="Materials" runat="server" Text='<%# Bind("Materials") %>' ></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Materialslab" runat="server" Text='<%# Bind("Materials") %>' ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Механизмы">
+                <EditItemTemplate>
+                    <asp:TextBox ID="Mechanisms" runat="server" Text='<%# Bind("Mechanisms") %>' ></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Mechanismslab" runat="server" Text='<%# Bind("Mechanisms") %>' ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>                                       
+        </Columns>
+                <EditRowStyle CssClass="GridViewEditRow" />
+                
+        </asp:GridView>
+        </asp:Panel>
+    
    
     
     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Одобрить" />

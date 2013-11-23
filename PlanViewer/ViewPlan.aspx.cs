@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,6 +13,11 @@ namespace PlanViewer
 {
     public partial class ViewPlan : System.Web.UI.Page
     {
+        string user;
+        protected int id;
+        int planID;
+        private static string connectionStr = WebConfigurationManager.ConnectionStrings["TeamProjectDBConnectionString1"].ConnectionString;
+        private SqlConnection conn = new SqlConnection(connectionStr);
         [WebMethod(EnableSession = true)]
           public static object StudentList(int jtStartIndex, int jtPageSize, string jtSorting)
           {
@@ -78,7 +85,31 @@ namespace PlanViewer
         {
             //viewPlan();
         }
-        
+        protected void gvbind()
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("Select ID, Object, WorkType, UnitName, CostName, Labor, Materials, Mechanisms from [Plan] where PlanID=" + planID, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            conn.Close();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                GridView1.DataSource = ds;
+                GridView1.DataBind();
+            }
+            else
+            {
+                ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
+                GridView1.DataSource = ds;
+                GridView1.DataBind();
+                int columncount = GridView1.Rows[0].Cells.Count;
+                GridView1.Rows[0].Cells.Clear();
+                GridView1.Rows[0].Cells.Add(new TableCell());
+                GridView1.Rows[0].Cells[0].ColumnSpan = columncount;
+                GridView1.Rows[0].Cells[0].Text = "Нет записей";
+            }
+        }
         protected void PlansDataSource_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
         {
             
@@ -139,6 +170,32 @@ namespace PlanViewer
           //     "<script type = 'text/javascript'>parent.location='mailto:" + email +
                "'</script>");
             */
+        }
+
+        protected void DropDownList1_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            try
+            {
+                planID = int.Parse(DropDownList1.SelectedValue);
+                gvbind();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.StackTrace);
+            }
+        }
+
+        protected void DropDownList1_DataBound(object sender, EventArgs e)
+        {
+            try
+            {
+                planID = int.Parse(DropDownList1.SelectedValue);
+                gvbind();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.StackTrace);
+            }
         }
     }
 }
