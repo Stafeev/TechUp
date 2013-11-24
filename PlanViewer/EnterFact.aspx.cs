@@ -16,6 +16,7 @@ namespace PlanViewer
     {
         string user;
         protected int id;
+        protected string providerstring;
         int planID;
         private static string connectionStr = WebConfigurationManager.ConnectionStrings["TeamProjectDBConnectionString1"].ConnectionString;
         private SqlConnection conn = new SqlConnection(connectionStr);
@@ -49,6 +50,9 @@ namespace PlanViewer
             {
                 id = query.ToArray()[0].ID;                
             }
+            providerstring = "SELECT Customer.Name, [Plan].PlanID FROM Contractor INNER JOIN [Plan] ON Contractor.ID = [Plan].Contractor INNER JOIN Customer ON [Plan].Customer = Customer.ID where Contractor.ID=10 GROUP BY [Plan].PlanID , Customer.Name";
+            SqlDataSource1.SelectCommand = string.Format(providerstring);
+            DataBind();
             //Session["UserID"] = id;   
             //DropDownList1.DataBind();
             try
@@ -268,6 +272,11 @@ namespace PlanViewer
             cmd.ExecuteNonQuery();
             conn.Close();
             Response.Redirect("CreatePlan.aspx");
+        }
+
+        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+
         }        
     }
 }

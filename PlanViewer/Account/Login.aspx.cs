@@ -6,8 +6,12 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Configuration;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Data.SqlClient;
 using PlanViewer.Models;
+
 
 namespace PlanViewer
 {
@@ -153,7 +157,14 @@ namespace PlanViewer
                 db.Customers.InsertOnSubmit(c);
             try
             {
-                db.SubmitChanges();                
+                db.SubmitChanges();
+                //отправляем письмо
+                string emailString = email;
+                string subject = "Регистрация в системе";
+                string text = "Здравствуйте,  " + name + "!" + ".\n" +
+                "Вы успешно зарегистрированы в системе взаимодействия подрядчиков и заказчиков." + ".\n" +
+                "Ваша роль в системе: заказчик " + "\nС уважением, администрация сервиса.";
+                sendEmail(emailString, subject, text);
             }
             catch (Exception ex)
             {
@@ -204,11 +215,18 @@ namespace PlanViewer
              db.Contractors.InsertOnSubmit(c);
              try
              {
-                 db.SubmitChanges();                 
+                 db.SubmitChanges();
+                 //отправляем письмо
+                 string emailString=email;
+                 string subject="Регистрация в системе";
+                 string text="Здравствуйте,  " + name +"!"+ ".\n" +
+                 "Вы успешно зарегистрированы в системе взаимодействия подрядчиков и заказчиков." +".\n" +
+                 "Ваша роль в системе: подрядчик " + "\nС уважением, администрация сервиса.";
+                 sendEmail(emailString, subject, text);
              }
              catch
              {
-                 ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "нет записи", true);
+                 ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "Не удалось зарегистрировать пользователя", true);
                  return;
              }
              
@@ -225,6 +243,18 @@ namespace PlanViewer
              }
              
              //Alert.Show("Запись успешно добавлена");
+         }
+         public void sendEmail(string email, string subject, string text)
+         {
+             SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 25); //формируем письмо
+             Smtp.Credentials = new NetworkCredential("abiturhse", "hseguest");
+             Smtp.EnableSsl = true;
+             MailMessage Message = new MailMessage();
+             Message.From = new MailAddress("abiturhse@gmail.com");
+             Message.To.Add(new MailAddress(email));
+             Message.Subject = subject;
+             Message.Body = text;
+             Smtp.Send(Message); //отправляем письмо                  
          }
     }
 }

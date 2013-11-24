@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -41,36 +42,19 @@ namespace PlanViewer
             if (query != null)
             {
                 id = query.ToArray()[0].ID;
-                contractor.Text = user;
             }
         }
 
         protected void ButtonSend_Click(object sender, EventArgs e)
         {
-            if (workObject.Text == "" || typeOfWork.Text == "" || nameOfCost.Text == ""
-                || measure.Text == "" || labour.Text == "" || materials.Text == "" || mechanisms.Text == "" ||
-                contractor.Text == "" || customer.Text == "")
-            {
-                Alert.Show("Пожалуйста, заполните все поля");
-                return;
-            }
-            var db = new DBClassesDataContext();            
-            Plan p = new Plan {  Status = 3, Object = workObject.Text, WorkType = typeOfWork.Text, 
-                CostName = nameOfCost.Text, UnitName = measure.Text, Labor = labour.Text, 
-                Materials = materials.Text, Mechanisms = mechanisms.Text, Contractor = id
-            };
-            
-            db.Plans.InsertOnSubmit(p);
-            try 
-            { 
-                db.SubmitChanges();
-                Alert.Show("Запись успешно добавлена");
-            }
-            catch 
-            { 
-                ClientScript.RegisterStartupScript(this.GetType(), "Ошибка", "нет записи", true); 
-            }
-            
+            PlansDataSource.Insert();
+            GridView1.EditIndex = GridView1.Rows.Count;   
+            //GridView1.Rows.Add();
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
     public static class Alert

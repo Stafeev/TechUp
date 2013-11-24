@@ -29,6 +29,9 @@
                 <ItemTemplate>
                     <asp:Label ID="FactObjectlab" runat="server" Text='<%# Bind("FactObject") %>' ></asp:Label>
                 </ItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="FactObject" runat="server" Text='<%# Bind("FactObject") %>' ></asp:TextBox>
+                </FooterTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Вид работ">
                 <EditItemTemplate>
@@ -37,6 +40,9 @@
                 <ItemTemplate>
                     <asp:Label ID="WorkTypelab" runat="server" Text='<%# Bind("WorkType") %>' ></asp:Label>
                 </ItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="WorkType" runat="server" Text='<%# Bind("WorkType") %>' ></asp:TextBox>
+                </FooterTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Наименование единичной расценки">
                 <EditItemTemplate>
@@ -45,6 +51,9 @@
                 <ItemTemplate>
                     <asp:Label ID="CostNamelab" runat="server" Text='<%# Bind("CostName") %>' ></asp:Label>
                 </ItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="CostName" runat="server" Text='<%# Bind("CostName") %>' ></asp:TextBox>
+                </FooterTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Единицы измерения">
                 <EditItemTemplate>
@@ -53,6 +62,9 @@
                 <ItemTemplate>
                     <asp:Label ID="UnitNamelab" runat="server" Text='<%# Bind("UnitName") %>' ></asp:Label>
                 </ItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="UnitName" runat="server" Text='<%# Bind("UnitName") %>' ></asp:TextBox>
+                </FooterTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Трудозатраты">
                 <EditItemTemplate>
@@ -61,6 +73,9 @@
                 <ItemTemplate>
                     <asp:Label ID="Laborlab" runat="server" Text='<%# Bind("Labor") %>' ></asp:Label>
                 </ItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="Labor" runat="server" Text='<%# Bind("Labor") %>' ></asp:TextBox>
+                </FooterTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Материалы">
                 <EditItemTemplate>
@@ -69,6 +84,9 @@
                 <ItemTemplate>
                     <asp:Label ID="Materialslab" runat="server" Text='<%# Bind("Materials") %>' ></asp:Label>
                 </ItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="Materials" runat="server" Text='<%# Bind("Materials") %>' ></asp:TextBox>
+                </FooterTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Механизмы">
                 <EditItemTemplate>
@@ -77,9 +95,13 @@
                 <ItemTemplate>
                     <asp:Label ID="Mechanismslab" runat="server" Text='<%# Bind("Mechanisms") %>' ></asp:Label>
                 </ItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="Mechanisms" runat="server" Text='<%# Bind("Mechanisms") %>' ></asp:TextBox>
+                </FooterTemplate>
             </asp:TemplateField>        
             <asp:CommandField ShowEditButton="true" />
             <asp:CommandField ShowDeleteButton="true" />                          
+            
         </Columns>
                 <EditRowStyle CssClass="GridViewEditRow" />
                 
